@@ -15,13 +15,28 @@ const viewQuestion = [
 }
 ];
 
+const theEmployee = [
+    {
+        name: "firstName",
+        message: "Please enter the first name of the employee."
+    },
+    {
+        name: "lastName",
+        message: "Please enter the last name of the employee."
+    },
+    {
+        name: "employeeRole",
+        message: "Please enter the role of the employee."
+    }
+]
+
 db.connect((error) => {
     if (error) throw error;
     console.log("Success");
     init();
 });
 
-function init () {
+let init = () => {
     inquirer.prompt(viewQuestion).then((answers) => {
         switch (answers.viewQ) {
             case "Display Employees":
@@ -73,4 +88,14 @@ let viewDepartments = () => {
         init();
     })
 };
+
+
+let addDepartment = () => {
+    inquirer.prompt()
+    db.query
+}
+
+let addEmployee = () => {
+    db.query
+}
 
