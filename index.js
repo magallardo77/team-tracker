@@ -28,6 +28,50 @@ const theEmployee = [
         name: "employeeRole",
         message: "Please enter the role of the employee."
     }
+] 
+
+const theRole = [
+    {
+        name: "initRole",
+        message: "Please enter the role of the employee."
+    },
+    {
+        name: "theSalary",
+        message: "Please enter the salary of the employee."
+    },
+    {
+        name: "theDepartment",
+        message: "Please enter the department of the employee."
+    }
+]
+
+const addDepartmentQuestion = [
+    {
+        name: "initDepartment",
+        message: "Please enter the name of the department you would like to add."
+    },
+]
+
+const addEmployeeQuestion = [{
+    name: "eqFirstName",
+    message: "Please enter the first name of the employee you would like to add."
+},
+{
+    name: "eqLastName",
+    message: "Please enter the last name of the employee you would like to add."
+},
+{
+    type: "list",
+    name: "eqRole",
+    message: "Please enter the role of the employee you would like to add.",
+    choices: []
+},
+{
+    type: "list",
+    name: "eq",
+    message: "Please enter the Manager of the employee you would like to add.",
+    choices: []
+},
 ]
 
 db.connect((error) => {
@@ -90,12 +134,18 @@ let viewDepartments = () => {
 };
 
 
-let addDepartment = () => {
-    inquirer.prompt()
-    db.query
-}
+let addDepartment = async () => {
+    inquirer.prompt(addDepartmentQuestion)  
+        let departmentQ = await db.query(`INSERT INTO role () VALUES ();`) [response.addDepartmentQuestion]; (req, res) => {
+            console.log("Success!")
+            init();
+        }
+    } 
 
-let addEmployee = () => {
-    db.query
+let addEmployee = async () => {
+    db.query("SELECT * FROM department;", (err, data) => {
+        ad
+    }
+    )
 }
 
