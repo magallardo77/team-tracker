@@ -68,7 +68,7 @@ const addEmployeeQuestion = [{
 },
 {
     type: "list",
-    name: "eq",
+    name: "eqMan",
     message: "Please enter the Manager of the employee you would like to add.",
     choices: []
 },
@@ -102,7 +102,7 @@ let init = () => {
             addEmployee();
             break;
             case "Quit":
-            console.log("Bye.");
+            console.log("Quit.");
             process.exit();
             break;
         default:
@@ -136,16 +136,49 @@ let viewDepartments = () => {
 
 let addDepartment = async () => {
     inquirer.prompt(addDepartmentQuestion)  
-        let departmentQ = await db.query(`INSERT INTO role () VALUES ();`) [response.addDepartmentQuestion]; (req, res) => {
+        let departmentQ = await db.query(`INSERT INTO role (name) VALUES (?);`) [response.addDepartmentQuestion]; (req, res) => {
             console.log("Success!")
             init();
         }
     } 
 
-let addEmployee = async () => {
-    db.query("SELECT * FROM department;", (err, data) => {
-        ad
+let addEmployee = () => {
+    db.query("SELECT * FROM role;", (err, data) => {
+        addEmployeeQuestion[2].choices = data.map((element) => ({value: element.id, name: element.title}));
+        db.query("SELECT * FROM employee;", (err, data) => {
+        addEmployeeQuestion[3].choices = data.map((element) => ({value: element.id, name: element.first_name}));
+        addEmployeeQuestion[3].choices.push({value: null, name: "None"});
+        inquirer.prompt(addEmployeeQuestion)
+        .then((data) => {
+            db.query(`INSERT INTO employee (first_name, last_name, role_id, manager_id)
+                VALUES ("${data.eqFirstName}", "${data.eqLastName}", ${data.eqRole}, ${eqMan})`)
+                console.log("Success!")
+        })
+        })
     }
     )
 }
+
+// let addEmployee = () => {
+//     db.query("SELECT * FROM role;", (err, data) => {
+//         whatEmployee[2].choices = data.map((element) => ({value: element.id, name: element.title}))
+//         db.query("SELECT * FROM employee;", (err, data) => {
+//             whatEmployee[3].choices = data.map((element) => ({value: element.id, name: element.first_name+" "+element.last_name}));
+//             // push none to choices incase none of the employees in database are their manager
+//             whatEmployee[3].choices.push({value: null, name: "None"});
+//             inquirer.prompt(whatEmployee)
+//             .then((response) => {
+//                 db.query(`INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?);`, 
+//                 [response.firstName, response.lastName, response.role, response.whichManager], 
+//                 (err, data) => {
+//                     if (err) throw err;
+//                     console.log("\n-----------------------------------------\n")
+//                     console.log("New employee has been successfully added!")
+//                     console.log("\n-----------------------------------------\n")
+//                     askInit();
+//                 })
+//             })
+//         })
+//     })
+// };
 
