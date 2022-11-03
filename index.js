@@ -6,6 +6,7 @@ db.connect((err) => {
     console.log("Connected to SQL server.")
 });
 
+//prompt question
 const viewQuestion = [
     {
     type: "list",
@@ -30,6 +31,7 @@ const theEmployee = [
     }
 ] 
 
+//add role prompt
 const theRole = [
     {
         name: "initRole",
@@ -45,6 +47,7 @@ const theRole = [
     }
 ]
 
+//add department prompt
 const addDepartmentQuestion = [
     {
         name: "initDepartment",
@@ -52,6 +55,7 @@ const addDepartmentQuestion = [
     },
 ]
 
+//add employee prompt
 const addEmployeeQuestion = [{
     name: "eqFirstName",
     message: "Please enter the first name of the employee you would like to add."
@@ -80,6 +84,7 @@ db.connect((error) => {
     init();
 });
 
+//initial question
 let init = () => {
     inquirer.prompt(viewQuestion).then((answers) => {
         switch (answers.viewQ) {
@@ -112,6 +117,7 @@ let init = () => {
     })
 }
 
+// view employee function
 let viewEmployees = () => {
     db.query("SELECT * FROM employee;", (err, data) => {
         console.table(data);
@@ -119,6 +125,7 @@ let viewEmployees = () => {
     })
 };
 
+// view role function
 let viewRoles = () => {
     db.query("SELECT * FROM roles;", (err, data) => {
         console.table(data);
@@ -126,6 +133,7 @@ let viewRoles = () => {
     })
 };
 
+// view department function
 let viewDepartments = () => {
     db.query("SELECT * FROM department;", (err, data) => {
         console.table(data);
@@ -133,15 +141,7 @@ let viewDepartments = () => {
     })
 };
 
-
-let addDepartment = async () => {
-    inquirer.prompt(addDepartmentQuestion)  
-        let departmentQ = await db.query(`INSERT INTO role (name) VALUES (?);`) [response.addDepartmentQuestion]; (req, res) => {
-            console.log("Success!")
-            init();
-        }
-    } 
-
+//add employee function using .then syntax
 let addEmployee = () => {
     db.query("SELECT * FROM role;", (err, data) => {
         addEmployeeQuestion[2].choices = data.map((element) => ({value: element.id, name: element.title}));
@@ -153,32 +153,32 @@ let addEmployee = () => {
             db.query(`INSERT INTO employee (first_name, last_name, role_id, manager_id)
                 VALUES ("${data.eqFirstName}", "${data.eqLastName}", ${data.eqRole}, ${eqMan})`)
                 console.log("Success!")
+                init();
         })
         })
     }
     )
 }
 
-// let addEmployee = () => {
-//     db.query("SELECT * FROM role;", (err, data) => {
-//         whatEmployee[2].choices = data.map((element) => ({value: element.id, name: element.title}))
-//         db.query("SELECT * FROM employee;", (err, data) => {
-//             whatEmployee[3].choices = data.map((element) => ({value: element.id, name: element.first_name+" "+element.last_name}));
-//             // push none to choices incase none of the employees in database are their manager
-//             whatEmployee[3].choices.push({value: null, name: "None"});
-//             inquirer.prompt(whatEmployee)
-//             .then((response) => {
-//                 db.query(`INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?);`, 
-//                 [response.firstName, response.lastName, response.role, response.whichManager], 
-//                 (err, data) => {
-//                     if (err) throw err;
-//                     console.log("\n-----------------------------------------\n")
-//                     console.log("New employee has been successfully added!")
-//                     console.log("\n-----------------------------------------\n")
-//                     askInit();
-//                 })
-//             })
-//         })
-//     })
-// };
 
+// add department using async await syntax
+let addDepartment = async () => {
+    inquirer.prompt(addDepartmentQuestion)  
+        let departmentQ = await db.query(`INSERT INTO role (name) VALUES (?);`) [addDepartmentQuestion]; (req, res) => {
+            console.log("Success!")
+            init();
+        }
+    } 
+
+    // add role function using .then syntax
+    let addRole = async () => {
+        db.query("SELECT * FROM employee;"), (req, res) => {
+            theRole[2].choices = datadata.map((element) => ({value: element.id, name: element.name}));
+            inquirer.prompt(theRole)
+            .then((data) => {
+                db.query(`INSERT INTO employee (first_name, last_name, role_id, manager_id)
+                VALUES ("${data.initRole}", "${data.theSalary}", ${data.theDepartment},)`)
+                console.log("Success!")
+            }
+            )  
+        }}
